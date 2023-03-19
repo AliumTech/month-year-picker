@@ -192,7 +192,7 @@ class _MonthYearPickerDialogState extends State<MonthYearPickerDialog> {
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, _selectedDate),
-            child: Text(widget.confirmText ?? 'Confirm'),
+            child: Text(widget.confirmText ?? 'OK'),
           ),
         ],
       ),
@@ -248,6 +248,7 @@ class _MonthYearPickerDialogState extends State<MonthYearPickerDialog> {
                       ? Icons.keyboard_arrow_right
                       : Icons.keyboard_arrow_left,
                 ),
+                color: onPrimarySurface,
                 splashRadius: 24,
                 onPressed: _canGoPrevious ? _goToPreviousPage : null,
               ),
@@ -257,6 +258,7 @@ class _MonthYearPickerDialogState extends State<MonthYearPickerDialog> {
                       ? Icons.keyboard_arrow_left
                       : Icons.keyboard_arrow_right,
                 ),
+                color: onPrimarySurface,
                 splashRadius: 24,
                 onPressed: _canGoNext ? _goToNextPage : null,
               )
