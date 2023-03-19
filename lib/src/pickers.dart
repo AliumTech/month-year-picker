@@ -354,24 +354,32 @@ class _Button extends StatelessWidget {
   // --------------------------------- METHODS ---------------------------------
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    final buttonBackground = isSelected ? colorScheme.secondary : null;
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final buttonBackground = isSelected ? colorScheme.onPrimary : null;
     final buttonText = isSelected
-        ? colorScheme.onSecondary
+        ? colorScheme.onPrimary
         : isHighlighted
-            ? colorScheme.secondary
+            ? colorScheme.onPrimary
             : colorScheme.onSurface;
+
+    final textTheme = theme.textTheme;
+    final headerForeground = colorScheme.brightness == Brightness.light
+        ? colorScheme.onPrimary
+        : colorScheme.onSurface;
+    final headerDisabledForeground = headerForeground.withOpacity(0.38);
+    final headlineStyle = textTheme.headlineSmall;
 
     return TextButton(
       onPressed: isEnabled ? onPressed : null,
       style: TextButton.styleFrom(
+        foregroundColor: headerForeground,
         backgroundColor: buttonBackground,
-        primary: buttonText,
-        onSurface: buttonText,
+        disabledForegroundColor: headerDisabledForeground,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(100.0),
         ),
-        textStyle: TextStyle(color: buttonText),
+        textStyle: headlineStyle?.copyWith(color: buttonText),
       ),
       child: Text(label),
     );
