@@ -2,7 +2,6 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart' hide YearPicker;
 
-import 'l10n/month_year_picker_localizations.dart';
 import 'pickers.dart';
 import 'utils.dart';
 
@@ -52,7 +51,6 @@ Future<DateTime?> showMonthYearPicker({
     'initialDate $initialDate must be on or before lastDate $lastDate.',
   );
   assert(debugCheckHasMaterialLocalizations(context));
-  assert(debugCheckHasMonthYearPickerLocalizations(context));
   assert(debugCheckHasDirectionality(context));
 
   Widget dialog = MonthYearPickerDialog(
@@ -163,7 +161,6 @@ class _MonthYearPickerDialogState extends State<MonthYearPickerDialog> {
   @override
   Widget build(BuildContext context) {
     final materialLocalizations = MaterialLocalizations.of(context);
-    final localizations = MonthYearPickerLocalizations.of(context);
     final media = MediaQuery.of(context);
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
@@ -179,8 +176,8 @@ class _MonthYearPickerDialogState extends State<MonthYearPickerDialog> {
         ? colorScheme.onPrimary
         : colorScheme.onSurface;
     final dateStyle = orientation == Orientation.landscape
-        ? textTheme.headline5?.copyWith(color: onPrimarySurface)
-        : textTheme.headline4?.copyWith(color: onPrimarySurface);
+        ? textTheme.headlineSmall?.copyWith(color: onPrimarySurface)
+        : textTheme.headlineMedium?.copyWith(color: onPrimarySurface);
 
     final Widget actions = Container(
       alignment: AlignmentDirectional.centerEnd,
@@ -191,11 +188,11 @@ class _MonthYearPickerDialogState extends State<MonthYearPickerDialog> {
         children: <Widget>[
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: Text(widget.cancelText ?? localizations.cancelButtonLabel),
+            child: Text(widget.cancelText ?? 'Cancel'),
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, _selectedDate),
-            child: Text(widget.confirmText ?? localizations.okButtonLabel),
+            child: Text(widget.confirmText ?? 'Confirm'),
           ),
         ],
       ),
@@ -203,7 +200,7 @@ class _MonthYearPickerDialogState extends State<MonthYearPickerDialog> {
 
     final semanticText = materialLocalizations.formatMonthYear(_selectedDate);
     final header = _Header(
-      helpText: widget.helpText ?? localizations.helpText,
+      helpText: widget.helpText ?? 'Select Month / Year',
       titleText: dateText,
       titleSemanticsLabel: semanticText,
       titleStyle: dateStyle,
@@ -214,13 +211,13 @@ class _MonthYearPickerDialogState extends State<MonthYearPickerDialog> {
       children: [
         TextButton(
           style: TextButton.styleFrom(
+            foregroundColor: Theme.of(context).textTheme.bodySmall?.color,
             padding: const EdgeInsetsDirectional.fromSTEB(
               24.0,
               16.0,
               24.0,
               16.0,
             ),
-            primary: Theme.of(context).textTheme.caption?.color,
           ),
           child: Row(
             children: [
@@ -463,7 +460,7 @@ class _Header extends StatelessWidget {
     final onPrimarySurfaceColor =
         isDark ? colorScheme.onSurface : colorScheme.onPrimary;
 
-    final helpStyle = textTheme.overline?.copyWith(
+    final helpStyle = textTheme.labelSmall?.copyWith(
       color: onPrimarySurfaceColor,
     );
 
