@@ -366,9 +366,9 @@ class _Button extends StatelessWidget {
     return TextButton(
       onPressed: isEnabled ? onPressed : null,
       style: TextButton.styleFrom(
+        foregroundColor: buttonText,
         backgroundColor: buttonBackground,
-        primary: buttonText,
-        onSurface: buttonText,
+        disabledForegroundColor: buttonText.withOpacity(0.38),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(100.0),
         ),
